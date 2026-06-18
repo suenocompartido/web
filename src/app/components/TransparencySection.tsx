@@ -1,51 +1,55 @@
-import { FileText, Euro, Scale, Calendar, FileCheck } from 'lucide-react';
-import balancePdf from '../../imports/Balance_de_situacion_2024.pdf';
-import certificadoPdf from '../../imports/CERTIFICADO_REGISTRAL.pdf';
-import cuentaPdf from '../../imports/Cuenta_de_Perdidas_y_Ganancias_2024.pdf';
-import memoriaPdf from '../../imports/MEMORIA_ACTIVIDADES.pdf';
-import resolucionPdf from '../../imports/RESOLUCION_MODIFICACION_ESTATUTOS_ASOCIACION_SUEN_O_COMPARTIDO.pdf';
+import { FileText, Euro, Scale, Calendar, FileCheck } from "lucide-react";
+import balancePdf from "../../imports/Balance_de_situacion_2024.pdf";
+import certificadoPdf from "../../imports/CERTIFICADO_REGISTRAL.pdf";
+import cuentaPdf from "../../imports/Cuenta_de_Perdidas_y_Ganancias_2024.pdf";
+import memoriaPdf from "../../imports/2025/MEMORIA_ACTIVIDADES.pdf";
+import resolucionPdf from "../../imports/RESOLUCION_MODIFICACION_ESTATUTOS_ASOCIACION_SUEN_O_COMPARTIDO.pdf";
 
 export function TransparencySection() {
   const documents = [
     {
-      title: 'Junta Directiva',
-      description: 'Junta Directiva de la asociación.',
+      title: "Junta Directiva",
+      description: "Junta Directiva de la asociación.",
       icon: FileText,
-      year: '2024',
+      year: "2024",
       file: certificadoPdf,
-      filename: 'Certificado_Registral_Sueno_Compartido.pdf',
+      filename: "Certificado_Registral_Sueno_Compartido.pdf",
     },
     {
-      title: 'Estatutos',
-      description: 'Resolución oficial de la modificación de los estatutos de la asociación.',
+      title: "Estatutos",
+      description:
+        "Resolución oficial de la modificación de los estatutos de la asociación.",
       icon: FileCheck,
-      year: '2025',
+      year: "2025",
       file: resolucionPdf,
-      filename: 'Resolucion_Modificacion_Estatutos_Sueno_Compartido.pdf',
+      filename: "Resolucion_Modificacion_Estatutos_Sueno_Compartido.pdf",
     },
     {
-      title: 'Memoria de Actividades',
-      description: 'Resumen completo de todas las actividades realizadas durante el año.',
+      title: "Memoria de Actividades",
+      description:
+        "Resumen completo de todas las actividades realizadas durante el año.",
       icon: Calendar,
-      year: '2024',
+      year: "2025",
       file: memoriaPdf,
-      filename: 'Memoria_Actividades_2024_Sueno_Compartido.pdf',
+      filename: "Memoria_Actividades_2025_Sueno_Compartido.pdf",
     },
     {
-      title: 'Balance 2024',
-      description: 'Estado patrimonial y financiero de la asociación al cierre del ejercicio.',
+      title: "Balance 2024",
+      description:
+        "Estado patrimonial y financiero de la asociación al cierre del ejercicio.",
       icon: Scale,
-      year: '2024',
+      year: "2024",
       file: balancePdf,
-      filename: 'Balance_Situacion_2024_Sueno_Compartido.pdf',
+      filename: "Balance_Situacion_2024_Sueno_Compartido.pdf",
     },
     {
-      title: 'Cuenta de Pérdidas y Ganancias 2024',
-      description: 'Detalle de ingresos, gastos y resultado económico del ejercicio.',
+      title: "Cuenta de Pérdidas y Ganancias 2024",
+      description:
+        "Detalle de ingresos, gastos y resultado económico del ejercicio.",
       icon: Euro,
-      year: '2024',
+      year: "2024",
       file: cuentaPdf,
-      filename: 'Cuenta_PyG_2024_Sueno_Compartido.pdf',
+      filename: "Cuenta_PyG_2024_Sueno_Compartido.pdf",
     },
   ];
 
@@ -57,7 +61,8 @@ export function TransparencySection() {
             Transparencia
           </h1>
           <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed">
-            La transparencia es uno de nuestros valores fundamentales. Aquí encontrarás toda la información sobre nuestra gestión y actividades.
+            La transparencia es uno de nuestros valores fundamentales. Aquí
+            encontrarás toda la información sobre nuestra gestión y actividades.
           </p>
         </div>
 
@@ -93,7 +98,9 @@ export function TransparencySection() {
                       aria-label={`Ver ${doc.title}`}
                     >
                       <FileText className="w-5 h-5" aria-hidden="true" />
-                      <span className="text-base font-medium">Ver documento</span>
+                      <span className="text-base font-medium">
+                        Ver documento
+                      </span>
                     </a>
                   </div>
                 </div>
