@@ -43,7 +43,7 @@ export function TransparencySection() {
       filename: "Balance_Situacion_2024_Sueno_Compartido.pdf",
     },
     {
-      title: "Cuenta de Pérdidas y Ganancias 2024",
+      title: "Cuenta de Pérdidas y Ganancias",
       description:
         "Detalle de ingresos, gastos y resultado económico del ejercicio.",
       icon: Euro,
