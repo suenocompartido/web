@@ -1,7 +1,7 @@
 import { FileText, Euro, Scale, Calendar, FileCheck } from "lucide-react";
 import balancePdf from "../../imports/Balance_de_situacion_2024.pdf";
 import certificadoPdf from "../../imports/CERTIFICADO_REGISTRAL.pdf";
-import cuentaPdf from "../../imports/Cuenta_de_Perdidas_y_Ganancias_2024.pdf";
+import cuentaPdf from "../../imports/2025/PerdidasGanancias.pdf";
 import memoriaPdf from "../../imports/2025/MEMORIA_ACTIVIDADES.pdf";
 import resolucionPdf from "../../imports/RESOLUCION_MODIFICACION_ESTATUTOS_ASOCIACION_SUEN_O_COMPARTIDO.pdf";
 
