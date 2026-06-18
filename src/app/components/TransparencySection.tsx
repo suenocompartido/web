@@ -47,9 +47,9 @@ export function TransparencySection() {
       description:
         "Detalle de ingresos, gastos y resultado económico del ejercicio.",
       icon: Euro,
-      year: "2024",
+      year: "2025",
       file: cuentaPdf,
-      filename: "Cuenta_PyG_2024_Sueno_Compartido.pdf",
+      filename: "Cuenta_PyG_2025_Sueno_Compartido.pdf",
     },
   ];
 
