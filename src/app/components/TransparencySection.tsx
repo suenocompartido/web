@@ -1,5 +1,5 @@
 import { FileText, Euro, Scale, Calendar, FileCheck } from "lucide-react";
-import balancePdf from "../../imports/Balance_de_situacion_2024.pdf";
+import balancePdf from "../../imports/2025/Balance.pdf";
 import certificadoPdf from "../../imports/CERTIFICADO_REGISTRAL.pdf";
 import cuentaPdf from "../../imports/2025/PerdidasGanancias.pdf";
 import memoriaPdf from "../../imports/2025/MEMORIA_ACTIVIDADES.pdf";
@@ -34,13 +34,13 @@ export function TransparencySection() {
       filename: "Memoria_Actividades_2025_Sueno_Compartido.pdf",
     },
     {
-      title: "Balance 2024",
+      title: "Balance",
       description:
         "Estado patrimonial y financiero de la asociación al cierre del ejercicio.",
       icon: Scale,
-      year: "2024",
+      year: "2025",
       file: balancePdf,
-      filename: "Balance_Situacion_2024_Sueno_Compartido.pdf",
+      filename: "Balance_Situacion_2025_Sueno_Compartido.pdf",
     },
     {
       title: "Cuenta de Pérdidas y Ganancias",
