@@ -64,8 +64,14 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Error al procesar la solicitud.');
+        let errMsg = 'Error al procesar la solicitud.';
+        try {
+          const errorData = await response.json();
+          errMsg = errorData.error || errMsg;
+        } catch (_) {
+          errMsg = `El servidor devolvió un error (Código: ${response.status}).`;
+        }
+        throw new Error(errMsg);
       }
 
       const paymentData = await response.json();
