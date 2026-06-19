@@ -17,6 +17,6 @@ export const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/web",
+    basename: window.location.pathname.startsWith('/web') ? '/web' : '/',
   },
 );
