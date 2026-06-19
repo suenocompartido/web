@@ -206,7 +206,7 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
             type="submit"
             disabled={loading}
             style={{
-              backgroundColor: loading ? undefined : (isBizum ? '#00A499' : undefined)
+              backgroundColor: isBizum ? '#00A499' : undefined
             }}
             className={`w-full py-4 text-white font-semibold rounded-xl text-lg active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-lg disabled:opacity-50 disabled:pointer-events-none cursor-pointer ${
               isBizum
