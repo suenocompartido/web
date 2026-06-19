@@ -1,10 +1,12 @@
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import logoSC from '../../imports/logoSC.png';
+import { DonateModal } from './DonateModal';
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [donateModalOpen, setDonateModalOpen] = useState(false);
   const location = useLocation();
 
   const handleScrollToSection = (sectionId: string) => {
@@ -74,6 +76,15 @@ export function Navigation() {
                 Inicio
               </Link>
             )}
+
+            {/* Donation Button */}
+            <button
+              onClick={() => setDonateModalOpen(true)}
+              className="ml-4 px-6 py-3 rounded-lg text-lg font-semibold text-white bg-primary hover:bg-accent transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center gap-2"
+            >
+              <Heart className="w-5 h-5 fill-white" />
+              <span>Colaborar</span>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -128,10 +139,25 @@ export function Navigation() {
                   Inicio
                 </Link>
               )}
+
+              {/* Mobile Donation Button */}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setDonateModalOpen(true);
+                }}
+                className="w-full text-center px-6 py-4 rounded-lg text-lg font-semibold text-white bg-primary hover:bg-accent transition-colors mt-4 flex items-center justify-center gap-2 shadow-sm"
+              >
+                <Heart className="w-5 h-5 fill-white" />
+                <span>Colaborar</span>
+              </button>
             </div>
           </div>
         )}
       </div>
+
+      {/* Donation Modal component */}
+      <DonateModal isOpen={donateModalOpen} onOpenChange={setDonateModalOpen} />
     </nav>
   );
 }
