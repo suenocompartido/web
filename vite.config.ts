@@ -35,5 +35,5 @@ export default defineConfig({
 
   // Public directory for static assets like favicon
   publicDir: "public",
-  base: "/web/",
+  base: process.env.VERCEL === "1" ? "/" : "/web/",
 });
