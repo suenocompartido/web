@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { amount } = req.body;
+    const { amount, method } = req.body;
 
     if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
       return res.status(400).json({ error: 'El importe no es válido' });
@@ -36,9 +36,18 @@ export default async function handler(req, res) {
     const orderId = `${yearMonth}${randomDigits}`;
 
     // Get config from environment variables (or fallbacks for Sandbox testing)
-    const merchantKey = process.env.REDSYS_SECRET_KEY || 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
-    const merchantCode = process.env.REDSYS_MERCHANT_CODE || '999008881';
-    const terminal = process.env.REDSYS_TERMINAL || '1';
+    // Allows separate credentials for Bizum if provided, otherwise falls back to card credentials
+    const isBizum = method === 'bizum';
+    const merchantKey = isBizum
+      ? (process.env.REDSYS_BIZUM_SECRET_KEY || process.env.REDSYS_SECRET_KEY || 'sq7HjrUOBfKmC576ILgskD5srU870gJ7')
+      : (process.env.REDSYS_SECRET_KEY || 'sq7HjrUOBfKmC576ILgskD5srU870gJ7');
+    const merchantCode = isBizum
+      ? (process.env.REDSYS_BIZUM_MERCHANT_CODE || process.env.REDSYS_MERCHANT_CODE || '999008881')
+      : (process.env.REDSYS_MERCHANT_CODE || '999008881');
+    const terminal = isBizum
+      ? (process.env.REDSYS_BIZUM_TERMINAL || process.env.REDSYS_TERMINAL || '1')
+      : (process.env.REDSYS_TERMINAL || '1');
+      
     const isProduction = process.env.REDSYS_ENVIRONMENT === 'production';
     
     // Determine the environment URL
@@ -63,6 +72,11 @@ export default async function handler(req, res) {
       DS_MERCHANT_URLOK: `${baseUrl}/transparencia?status=success&order=${orderId}`,
       DS_MERCHANT_URLKO: `${baseUrl}/transparencia?status=error&order=${orderId}`,
     };
+
+    // If Bizum is chosen, force Bizum payment method ('z')
+    if (isBizum) {
+      params.DS_MERCHANT_PAYMETHODS = 'z';
+    }
 
     // Convert parameters to JSON and Base64 encode
     const merchantParameters = Buffer.from(JSON.stringify(params)).toString('base64');

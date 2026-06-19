@@ -16,6 +16,7 @@ interface DonateModalProps {
 export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(10);
   const [customAmount, setCustomAmount] = useState<string>('');
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'bizum'>('card');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -60,7 +61,7 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: finalAmount }),
+        body: JSON.stringify({ amount: finalAmount, method: paymentMethod }),
       });
 
       if (!response.ok) {
@@ -104,6 +105,7 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
   };
 
   const currentAmount = getFinalAmount();
+  const isBizum = paymentMethod === 'bizum';
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -160,6 +162,39 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
             </div>
           </div>
 
+          {/* Payment Method Selection */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground block">
+              Método de pago
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('card')}
+                className={`py-3 px-3 rounded-xl border-2 transition-all flex items-center justify-center gap-2 font-medium cursor-pointer ${
+                  paymentMethod === 'card'
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-border bg-white text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground'
+                }`}
+              >
+                <CreditCard className="w-5 h-5" />
+                <span className="text-base">Tarjeta</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('bizum')}
+                className={`py-3 px-3 rounded-xl border-2 transition-all flex items-center justify-center gap-2 font-medium cursor-pointer ${
+                  paymentMethod === 'bizum'
+                    ? 'border-[#00A499] bg-[#00A499]/5 text-[#00A499]'
+                    : 'border-border bg-white text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground'
+                }`}
+              >
+                <span className="w-2.5 h-2.5 rounded-full bg-[#00A499] flex-shrink-0" />
+                <span className="text-base font-bold tracking-tight">Bizum</span>
+              </button>
+            </div>
+          </div>
+
           {error && (
             <div className="text-sm font-medium text-red-600 bg-red-50 p-3 rounded-lg border border-red-200">
               {error}
@@ -170,7 +205,14 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 bg-primary text-white font-semibold rounded-xl text-lg hover:bg-accent active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-lg disabled:opacity-50 disabled:pointer-events-none"
+            style={{
+              backgroundColor: loading ? undefined : (isBizum ? '#00A499' : undefined)
+            }}
+            className={`w-full py-4 text-white font-semibold rounded-xl text-lg active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-lg disabled:opacity-50 disabled:pointer-events-none cursor-pointer ${
+              isBizum
+                ? 'hover:bg-[#008f85] focus:ring-[#00A499]'
+                : 'bg-primary hover:bg-accent focus:ring-primary'
+            }`}
           >
             {loading ? (
               <>
@@ -179,8 +221,17 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
               </>
             ) : (
               <>
-                <CreditCard className="w-6 h-6" />
-                <span>Donar {currentAmount > 0 ? `${currentAmount.toFixed(2)} €` : ''}</span>
+                {isBizum ? (
+                  <>
+                    <span className="w-3 h-3 rounded-full bg-white" />
+                    <span>Donar con Bizum {currentAmount > 0 ? `${currentAmount.toFixed(2)} €` : ''}</span>
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="w-6 h-6" />
+                    <span>Donar con Tarjeta {currentAmount > 0 ? `${currentAmount.toFixed(2)} €` : ''}</span>
+                  </>
+                )}
               </>
             )}
           </button>
