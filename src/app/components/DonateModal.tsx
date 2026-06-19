@@ -116,7 +116,7 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
             Haz un Donativo
           </DialogTitle>
           <DialogDescription className="text-base text-muted-foreground mt-2">
-            Tu generosidad nos ayuda a ofrecer apoyo, recursos y terapias a los afectados por esclerosis y ELA en Los Pedroches.
+            Tu generosidad nos ayuda a ofrecer apoyo, recursos y terapias a los afectados por esclerosis, ELA y enfermedades similares en Los Pedroches.
           </DialogDescription>
         </DialogHeader>
 
