@@ -20,6 +20,7 @@ export function Navigation() {
   };
 
   const isHome = location.pathname === '/';
+  const showColaborar = !window.location.pathname.startsWith('/web');
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50" role="navigation" aria-label="Navegación principal">
@@ -41,7 +42,7 @@ export function Navigation() {
               </p>
             </div>
           </Link>
-
+          
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
             {isHome ? (
@@ -61,6 +62,20 @@ export function Navigation() {
                   Quiénes Somos
                 </button>
                 <button
+                  onClick={() => handleScrollToSection('que-ofrecemos')}
+                  className="px-6 py-3 rounded-lg text-lg font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  aria-label="Ir a sección Qué Ofrecemos"
+                >
+                  ¿Qué Ofrecemos?
+                </button>
+                <button
+                  onClick={() => handleScrollToSection('eventos')}
+                  className="px-6 py-3 rounded-lg text-lg font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  aria-label="Ir a sección Próximos Eventos"
+                >
+                  Eventos
+                </button>
+                <button
                   onClick={() => handleScrollToSection('contacto')}
                   className="px-6 py-3 rounded-lg text-lg font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   aria-label="Ir a sección Contacto"
@@ -77,14 +92,16 @@ export function Navigation() {
               </Link>
             )}
 
-            {/* Donation Button */}
-            <button
-              onClick={() => setDonateModalOpen(true)}
-              className="ml-4 px-6 py-3 rounded-lg text-lg font-semibold text-white bg-primary hover:bg-accent transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center gap-2"
-            >
-              <Heart className="w-5 h-5 fill-white" />
-              <span>Colaborar</span>
-            </button>
+            {/* Donation Button (Desktop) */}
+            {showColaborar && (
+              <button
+                onClick={() => setDonateModalOpen(true)}
+                className="ml-4 px-6 py-3 rounded-lg text-lg font-semibold text-white bg-primary hover:bg-accent transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center gap-2"
+              >
+                <Heart className="w-5 h-5 fill-white" />
+                <span>Colaborar</span>
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -123,6 +140,20 @@ export function Navigation() {
                     Quiénes Somos
                   </button>
                   <button
+                    onClick={() => handleScrollToSection('que-ofrecemos')}
+                    className="w-full text-left px-6 py-4 rounded-lg text-lg font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                    aria-label="Ir a sección Qué Ofrecemos"
+                  >
+                    ¿Qué Ofrecemos?
+                  </button>
+                  <button
+                    onClick={() => handleScrollToSection('eventos')}
+                    className="w-full text-left px-6 py-4 rounded-lg text-lg font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                    aria-label="Ir a sección Próximos Eventos"
+                  >
+                    Eventos
+                  </button>
+                  <button
                     onClick={() => handleScrollToSection('contacto')}
                     className="w-full text-left px-6 py-4 rounded-lg text-lg font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
                     aria-label="Ir a sección Contacto"
@@ -141,16 +172,18 @@ export function Navigation() {
               )}
 
               {/* Mobile Donation Button */}
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setDonateModalOpen(true);
-                }}
-                className="w-full text-center px-6 py-4 rounded-lg text-lg font-semibold text-white bg-primary hover:bg-accent transition-colors mt-4 flex items-center justify-center gap-2 shadow-sm"
-              >
-                <Heart className="w-5 h-5 fill-white" />
-                <span>Colaborar</span>
-              </button>
+              {showColaborar && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setDonateModalOpen(true);
+                  }}
+                  className="w-full text-center px-6 py-4 rounded-lg text-lg font-semibold text-white bg-primary hover:bg-accent transition-colors mt-4 flex items-center justify-center gap-2 shadow-sm"
+                >
+                  <Heart className="w-5 h-5 fill-white" />
+                  <span>Colaborar</span>
+                </button>
+              )}
             </div>
           </div>
         )}

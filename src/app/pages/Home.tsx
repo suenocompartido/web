@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { HeroSection } from '../components/HeroSection';
 import { AboutSection } from '../components/AboutSection';
+import { OfferSection } from '../components/OfferSection';
+import { EventsSection } from '../components/EventsSection';
 import { ContactSection } from '../components/ContactSection';
 
 export function Home() {
@@ -12,6 +14,8 @@ export function Home() {
     <>
       <HeroSection />
       <AboutSection />
+      <OfferSection />
+      <EventsSection />
       <ContactSection />
     </>
   );
