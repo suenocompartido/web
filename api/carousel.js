@@ -1,4 +1,4 @@
-import { SECTIONS, getConfig, listSectionImages } from './_drive.js';
+import { IMAGE_SECTIONS, getConfig, listSectionFiles } from './_drive.js';
 
 // GET /api/carousel?seccion=servicios|eventos
 // Returns the images of that Drive subfolder. The filename rules (order, dates)
@@ -9,8 +9,8 @@ export default async function handler(req, res) {
   }
 
   const section = String(req.query.seccion || '').toLowerCase();
-  if (!SECTIONS.includes(section)) {
-    return res.status(400).json({ error: `Sección no válida. Usa: ${SECTIONS.join(', ')}` });
+  if (!IMAGE_SECTIONS.includes(section)) {
+    return res.status(400).json({ error: `Sección no válida. Usa: ${IMAGE_SECTIONS.join(', ')}` });
   }
 
   const config = getConfig();
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const files = await listSectionImages(config, section);
+    const files = await listSectionFiles(config, section);
     const images = files.map((file) => ({
       name: file.name,
       description: file.description,

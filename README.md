@@ -9,9 +9,9 @@
 
   Run `npm run dev` to start the development server.
   
-## Carruseles de imágenes (Google Drive)
+## Contenido desde Google Drive
 
-Las imágenes de "¿Qué ofrecemos?" y "Próximos eventos" se leen de una carpeta de Google Drive.
+Las imágenes de "¿Qué ofrecemos?" y "Próximos eventos" y los documentos de "Transparencia" se leen de una carpeta de Google Drive.
 Los cambios aparecen en la web en un máximo de ~10 minutos, sin tocar el código.
 
 ### Estructura de la carpeta
@@ -19,7 +19,8 @@ Los cambios aparecen en la web en un máximo de ~10 minutos, sin tocar el códig
 ```
 Carpeta raíz (compartida: "Cualquier persona con el enlace" → Lector)
 ├── servicios/
-└── eventos/
+├── eventos/
+└── transparencia/
 ```
 
 ### Nombres de archivo
@@ -37,6 +38,23 @@ Carpeta raíz (compartida: "Cualquier persona con el enlace" → Lector)
 - Los archivos que no siguen el formato se ignoran.
 - Formatos: JPG, PNG o WebP.
 
+### Documentos de transparencia
+
+Formato: `AAAA_tipo.pdf` (ej. `2025_balance.pdf`). Tipos con título, descripción e icono propios:
+
+| Tipo                        | Tarjeta                         |
+|-----------------------------|---------------------------------|
+| `junta-directiva`           | Junta Directiva                 |
+| `estatutos`                 | Estatutos                       |
+| `memoria-actividades`       | Memoria de Actividades          |
+| `balance`                   | Balance                         |
+| `cuenta-perdidas-ganancias` | Cuenta de Pérdidas y Ganancias  |
+
+- Cada tipo se muestra con su año más reciente; los anteriores aparecen como enlaces en "Años anteriores".
+- Un tipo nuevo (ej. `2026_plan-de-igualdad.pdf`) aparece con icono genérico y el título sacado del nombre.
+  Para darle descripción e icono propios, añadirlo a `DOCUMENT_TYPES` en `src/app/lib/transparencyDocuments.ts`.
+- Solo PDF.
+
 ### Configuración (una sola vez)
 
 1. En [Google Cloud Console](https://console.cloud.google.com/), crear un proyecto, activar **Google Drive API**
@@ -46,5 +64,5 @@ Carpeta raíz (compartida: "Cualquier persona con el enlace" → Lector)
    - `GOOGLE_DRIVE_FOLDER_ID`: el ID de la carpeta raíz (lo que va tras `/folders/` en su enlace).
 3. Volver a desplegar.
 
-Si Drive no está configurado o falla, se muestran las imágenes de `src/imports/servicios` y
-`src/imports/eventos`, que siguen las mismas reglas de nombre.
+Si Drive no está configurado o falla, se muestran los archivos de `src/imports/servicios`,
+`src/imports/eventos` y `src/imports/transparencia`, que siguen las mismas reglas de nombre.

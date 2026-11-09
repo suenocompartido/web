@@ -3,7 +3,8 @@
 // Expected structure in Drive (folder shared as "Anyone with the link can view"):
 //   <root folder>            -> GOOGLE_DRIVE_FOLDER_ID
 //     ├── servicios/         -> images for the "¿Qué ofrecemos?" carousel
-//     └── eventos/           -> posters for the "Próximos eventos" carousel
+//     ├── eventos/           -> posters for the "Próximos eventos" carousel
+//     └── transparencia/     -> PDF documents for the "Transparencia" page
 //
 // Required environment variables (Vercel):
 //   GOOGLE_DRIVE_API_KEY     -> API key restricted to the Google Drive API
@@ -13,7 +14,8 @@
 
 const DRIVE_API = 'https://www.googleapis.com/drive/v3/files';
 
-export const SECTIONS = ['servicios', 'eventos'];
+export const IMAGE_SECTIONS = ['servicios', 'eventos'];
+export const SECTIONS = [...IMAGE_SECTIONS, 'transparencia'];
 
 export function getConfig() {
   const apiKey = process.env.GOOGLE_DRIVE_API_KEY;
@@ -77,15 +79,15 @@ export async function getSectionFolders({ apiKey, rootId }) {
   return result;
 }
 
-/** Lists the images inside one section subfolder. */
-export async function listSectionImages(config, section) {
+/** Lists the images (or PDFs, for "transparencia") inside one section subfolder. */
+export async function listSectionFiles(config, section) {
   const folders = await getSectionFolders(config);
   const folderId = folders[section];
   if (!folderId) return [];
 
   const files = await listChildren(
     folderId,
-    "mimeType contains 'image/'",
+    section === 'transparencia' ? "mimeType = 'application/pdf'" : "mimeType contains 'image/'",
     'id, name, description',
     config.apiKey
   );
@@ -104,7 +106,9 @@ export async function listSectionImages(config, section) {
  */
 export async function getAllowedImage(config, fileId) {
   const folders = await getSectionFolders(config);
-  for (const folderId of Object.values(folders)) {
+  for (const section of IMAGE_SECTIONS) {
+    const folderId = folders[section];
+    if (!folderId) continue;
     const files = await listChildren(
       folderId,
       "mimeType contains 'image/'",
