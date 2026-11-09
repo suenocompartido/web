@@ -12,10 +12,10 @@ function NextArrow({ onClick }: ArrowProps) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
+      className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 sm:w-12 sm:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
       aria-label="Siguiente imagen"
     >
-      <ChevronRight className="w-6 h-6 text-primary" />
+      <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
     </button>
   );
 }
@@ -24,10 +24,10 @@ function PrevArrow({ onClick }: ArrowProps) {
   return (
     <button
       onClick={onClick}
-      className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
+      className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 sm:w-12 sm:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
       aria-label="Imagen anterior"
     >
-      <ChevronLeft className="w-6 h-6 text-primary" />
+      <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
     </button>
   );
 }
@@ -38,7 +38,7 @@ export function OfferCarousel() {
   if (loading) {
     return (
       <div
-        className="rounded-2xl shadow-xl border border-primary/10 bg-white aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] animate-pulse"
+        className="rounded-2xl shadow-xl border border-primary/10 bg-white aspect-[4/5] sm:aspect-[16/10] animate-pulse"
         aria-busy="true"
         aria-label="Cargando galería de servicios"
       />
@@ -69,7 +69,7 @@ export function OfferCarousel() {
       <Slider {...settings}>
         {images.map((image, index) => (
           <div key={image.filename} className="relative">
-            <div className="aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] bg-slate-900/5 flex items-center justify-center p-2 sm:p-4">
+            <div className="aspect-[4/5] sm:aspect-[16/10] bg-slate-900/5 flex items-center justify-center p-2 sm:p-4">
               <img
                 src={image.url}
                 alt={image.alt}

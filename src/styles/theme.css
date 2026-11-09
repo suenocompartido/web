@@ -126,6 +126,13 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Safety net: nothing may cause sideways scrolling on phones ("clip" keeps the sticky menu working) */
+    overflow-x: clip;
+  }
+
+  /* Leave room for the sticky menu when jumping to a section */
+  section[id] {
+    scroll-margin-top: 5rem;
   }
 
   /**

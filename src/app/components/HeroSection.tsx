@@ -4,24 +4,24 @@ export function HeroSection() {
   return (
     <section
       id="inicio"
-      className="bg-gradient-to-br from-secondary via-white to-muted py-20 lg:py-32"
+      className="bg-gradient-to-br from-secondary via-white to-muted py-14 sm:py-20 lg:py-32"
       aria-labelledby="hero-heading"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
-          <h2 id="hero-heading" className="text-4xl lg:text-6xl font-semibold text-foreground mb-6">
+          <h2 id="hero-heading" className="text-3xl sm:text-4xl lg:text-6xl font-semibold text-foreground mb-6">
             Unidos por las esclerosis en Los Pedroches
           </h2>
-          <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed">
+          <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-8 sm:mb-12 leading-relaxed">
             Sueño Compartido es una asociación dedicada a mejorar la calidad de vida de las personas con esclerosis múltiple, ELA y enfermedades similares en el Valle de los Pedroches, Córdoba.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-10 sm:mt-16">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
                 <Heart className="w-8 h-8 text-white" aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">
+              <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-4">
                 Apoyo y Acompañamiento
               </h3>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -29,11 +29,11 @@ export function HeroSection() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
                 <Users className="w-8 h-8 text-white" aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">
+              <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-4">
                 Comunidad Activa
               </h3>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -41,11 +41,11 @@ export function HeroSection() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
                 <Lightbulb className="w-8 h-8 text-white" aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">
+              <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-4">
                 Información y Recursos
               </h3>
               <p className="text-lg text-muted-foreground leading-relaxed">

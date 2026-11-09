@@ -109,7 +109,7 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[450px] p-8 rounded-2xl">
+      <DialogContent className="sm:max-w-[450px] p-5 sm:p-8 rounded-2xl max-h-[calc(100dvh-2rem)] overflow-y-auto">
         <DialogHeader className="items-center text-center">
           <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4 text-primary">
             <Heart className="w-8 h-8 fill-primary/20" />
@@ -124,13 +124,13 @@ export function DonateModal({ isOpen, onOpenChange }: DonateModalProps) {
 
         <form onSubmit={handleDonate} className="space-y-6 mt-4">
           {/* Preset Buttons */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-2 sm:gap-3">
             {presets.map((preset) => (
               <button
                 key={preset}
                 type="button"
                 onClick={() => handlePresetSelect(preset)}
-                className={`py-3 px-2 rounded-xl text-lg font-semibold border-2 transition-all ${
+                className={`py-3 px-1 rounded-xl text-base sm:text-lg font-semibold border-2 transition-all ${
                   selectedAmount === preset
                     ? 'border-primary bg-primary/5 text-primary'
                     : 'border-border bg-white text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground'

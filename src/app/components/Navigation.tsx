@@ -24,17 +24,17 @@ export function Navigation() {
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50" role="navigation" aria-label="Navegación principal">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo and Title */}
           <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <img
               src={logoSC}
               alt="Logo de Sueño Compartido"
-              className="w-14 h-14 object-contain"
+              className="w-12 h-12 sm:w-14 sm:h-14 object-contain flex-shrink-0"
             />
             <div className="flex flex-col">
-              <h1 className="text-xl lg:text-2xl font-semibold text-foreground leading-tight">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-foreground leading-tight">
                 Sueño Compartido
               </h1>
               <p className="text-sm text-muted-foreground hidden sm:block">
@@ -44,7 +44,7 @@ export function Navigation() {
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden xl:flex items-center gap-2">
             {isHome ? (
               <>
                 <button
@@ -107,7 +107,7 @@ export function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-3 rounded-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary"
+            className="xl:hidden p-3 rounded-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary"
             aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={mobileMenuOpen}
           >
@@ -121,7 +121,7 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-6 border-t border-border mt-2 pt-4">
+          <div className="xl:hidden pb-6 border-t border-border mt-2 pt-4">
             <div className="flex flex-col gap-2">
               {isHome ? (
                 <>

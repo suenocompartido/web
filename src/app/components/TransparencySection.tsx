@@ -5,13 +5,13 @@ export function TransparencySection() {
   const { documents, loading } = useTransparencyDocuments();
 
   return (
-    <section className="bg-gradient-to-br from-muted via-white to-secondary py-20 lg:py-32">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-semibold text-foreground mb-6">
+    <section className="bg-gradient-to-br from-muted via-white to-secondary py-14 sm:py-20 lg:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-16">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-6">
             Transparencia
           </h1>
-          <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed">
+          <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground leading-relaxed">
             La transparencia es uno de nuestros valores fundamentales. Aquí
             encontrarás toda la información sobre nuestra gestión y actividades.
           </p>
@@ -28,19 +28,19 @@ export function TransparencySection() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {documents.map((doc) => {
               const Icon = doc.icon;
               return (
                 <div
                   key={doc.type}
-                  className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                  className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all sm:hover:scale-105"
                 >
-                  <div className="flex items-start gap-6">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                     <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                       <Icon className="w-7 h-7 text-white" aria-hidden="true" />
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0 w-full">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <h3 className="text-xl font-semibold text-foreground">
                           {doc.title}

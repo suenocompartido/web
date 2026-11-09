@@ -6,10 +6,10 @@ export function PrivacyPolicy() {
   }, []);
 
   return (
-    <section className="bg-white py-20 lg:py-32">
-      <div className="max-w-4xl mx-auto px-6 lg:px-8">
+    <section className="bg-white py-14 sm:py-20 lg:py-32">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-semibold text-foreground mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-6">
             Política de Privacidad
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -17,7 +17,7 @@ export function PrivacyPolicy() {
           </p>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-12 [overflow-wrap:anywhere]">
           {/* Sección 1 */}
           <div>
             <h2 className="text-2xl font-semibold text-foreground mb-4 flex items-center gap-3">
