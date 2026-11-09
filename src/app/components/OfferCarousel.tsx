@@ -3,6 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import furgonetaImg from '../../imports/furgoneta.jpg';
+import talleresPsicologiaImg from '../../imports/talleres_psicologia.jpg';
 
 interface ArrowProps {
   onClick?: () => void;
@@ -39,6 +40,13 @@ export function OfferCarousel() {
       alt: 'Proyecto Nadie se Queda Atrás - Vehículo de transporte adaptado y trabajo social itinerante',
       title: 'Nadie se Queda Atrás',
       description: 'Acercando Cuidados y Trabajo Social a la Comarca de Los Pedroches',
+      objectFit: 'contain' as const,
+    },
+    {
+      url: talleresPsicologiaImg,
+      alt: 'Talleres de psicología de Sueño Compartido: miércoles a las 18:00 h con el Gabinete psicológico Silvia Peinado Rubio y miércoles a las 10:30 h con Centro Raíces. Direcciones: Calle Encina, 74 y Calle Granada, n.º 6, Pozoblanco (Córdoba). Colaboran el Instituto Provincial de Bienestar Social de la Diputación de Córdoba y el Ayuntamiento de Pozoblanco.',
+      title: 'Talleres de Psicología',
+      description: 'Los miércoles por la mañana y por la tarde en Pozoblanco',
       objectFit: 'contain' as const,
     },
   ];
