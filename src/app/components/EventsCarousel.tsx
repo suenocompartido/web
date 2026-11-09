@@ -3,15 +3,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 
-export interface EventItem {
-  url: string;
-  filename: string;
-  date: Date;
-  dateFormatted: string;
-}
+import type { CarouselImage } from '../lib/carouselImages';
 
 interface EventsCarouselProps {
-  events: EventItem[];
+  events: CarouselImage[];
 }
 
 interface ArrowProps {
@@ -64,11 +59,11 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
     <div className="relative rounded-2xl overflow-hidden shadow-xl border border-primary/10 bg-white" aria-label="Carrusel de próximos eventos">
       <Slider {...settings}>
         {events.map((event, index) => (
-          <div key={index} className="relative">
+          <div key={event.filename} className="relative">
             <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] bg-slate-900/5 flex items-center justify-center p-2 sm:p-4">
               <img
                 src={event.url}
-                alt={`Cartel del evento - ${event.dateFormatted}`}
+                alt={event.alt}
                 className="w-full h-full object-contain rounded-lg"
                 loading={index === 0 ? 'eager' : 'lazy'}
               />

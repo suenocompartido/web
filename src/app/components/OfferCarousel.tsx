@@ -2,8 +2,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import furgonetaImg from '../../imports/furgoneta.jpg';
-import talleresPsicologiaImg from '../../imports/talleres_psicologia.jpg';
+import { useCarouselImages } from '../lib/carouselImages';
 
 interface ArrowProps {
   onClick?: () => void;
@@ -34,22 +33,19 @@ function PrevArrow({ onClick }: ArrowProps) {
 }
 
 export function OfferCarousel() {
-  const images = [
-    {
-      url: furgonetaImg,
-      alt: 'Proyecto Nadie se Queda Atrás - Vehículo de transporte adaptado y trabajo social itinerante',
-      title: 'Nadie se Queda Atrás',
-      description: 'Acercando Cuidados y Trabajo Social a la Comarca de Los Pedroches',
-      objectFit: 'contain' as const,
-    },
-    {
-      url: talleresPsicologiaImg,
-      alt: 'Talleres de psicología de Sueño Compartido: miércoles a las 18:00 h con el Gabinete psicológico Silvia Peinado Rubio y miércoles a las 10:30 h con Centro Raíces. Direcciones: Calle Encina, 74 y Calle Granada, n.º 6, Pozoblanco (Córdoba). Colaboran el Instituto Provincial de Bienestar Social de la Diputación de Córdoba y el Ayuntamiento de Pozoblanco.',
-      title: 'Talleres de Psicología',
-      description: 'Los miércoles por la mañana y por la tarde en Pozoblanco',
-      objectFit: 'contain' as const,
-    },
-  ];
+  const { images, loading } = useCarouselImages('servicios');
+
+  if (loading) {
+    return (
+      <div
+        className="rounded-2xl shadow-xl border border-primary/10 bg-white aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] animate-pulse"
+        aria-busy="true"
+        aria-label="Cargando galería de servicios"
+      />
+    );
+  }
+
+  if (images.length === 0) return null;
 
   const hasMultipleImages = images.length > 1;
 
@@ -72,7 +68,7 @@ export function OfferCarousel() {
     <div className="relative rounded-2xl overflow-hidden shadow-xl border border-primary/10 bg-white" aria-label="Galería de servicios y proyectos">
       <Slider {...settings}>
         {images.map((image, index) => (
-          <div key={index} className="relative">
+          <div key={image.filename} className="relative">
             <div className="aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] bg-slate-900/5 flex items-center justify-center p-2 sm:p-4">
               <img
                 src={image.url}

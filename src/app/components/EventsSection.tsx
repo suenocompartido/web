@@ -1,51 +1,9 @@
-import { useMemo } from 'react';
 import { CalendarOff, Sparkles } from 'lucide-react';
-import { EventsCarousel, EventItem } from './EventsCarousel';
-
-export function getUpcomingEvents(): EventItem[] {
-  const eventModules = import.meta.glob<{ default: string }>(
-    '../../imports/eventos/*.{jpg,jpeg,png,webp,avif,svg}',
-    { eager: true }
-  );
-
-  const now = new Date();
-  const events: EventItem[] = [];
-
-  for (const path in eventModules) {
-    const filename = path.split('/').pop() || '';
-    const match = filename.match(/(\d{2})_(\d{2})_(\d{4})/);
-    if (!match) continue;
-
-    const day = parseInt(match[1], 10);
-    const month = parseInt(match[2], 10);
-    const year = parseInt(match[3], 10);
-
-    // Event remains valid until the end of the specified day (23:59:59)
-    const eventEndDate = new Date(year, month - 1, day, 23, 59, 59, 999);
-
-    if (now <= eventEndDate) {
-      const eventDate = new Date(year, month - 1, day);
-      const dateFormatted = eventDate.toLocaleDateString('es-ES', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      });
-
-      events.push({
-        url: eventModules[path].default,
-        filename,
-        date: eventDate,
-        dateFormatted,
-      });
-    }
-  }
-
-  // Sort upcoming events chronologically (earliest event first)
-  return events.sort((a, b) => a.date.getTime() - b.date.getTime());
-}
+import { EventsCarousel } from './EventsCarousel';
+import { useCarouselImages } from '../lib/carouselImages';
 
 export function EventsSection() {
-  const upcomingEvents = useMemo(() => getUpcomingEvents(), []);
+  const { images: upcomingEvents, loading } = useCarouselImages('eventos');
 
   return (
     <section
@@ -66,7 +24,13 @@ export function EventsSection() {
           </p>
         </div>
 
-        {upcomingEvents.length > 0 ? (
+        {loading ? (
+          <div
+            className="max-w-5xl mx-auto rounded-2xl shadow-xl border border-primary/10 bg-white aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] animate-pulse"
+            aria-busy="true"
+            aria-label="Cargando próximos eventos"
+          />
+        ) : upcomingEvents.length > 0 ? (
           <div className="max-w-5xl mx-auto">
             <EventsCarousel events={upcomingEvents} />
           </div>
