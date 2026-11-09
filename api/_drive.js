@@ -98,48 +98,49 @@ export async function listSectionImages(config, section) {
 }
 
 /**
- * Checks that the file is an image inside one of the carousel subfolders,
- * so the image endpoint cannot be used to serve any other Drive file.
+ * Returns the image if it is inside one of the carousel subfolders, so the image
+ * endpoint cannot be used to serve any other Drive file. It reuses the folder
+ * listing because the "parents" field is not always returned for API key requests.
  */
 export async function getAllowedImage(config, fileId) {
   const folders = await getSectionFolders(config);
-  const allowedParents = new Set(Object.values(folders));
-
-  const params = new URLSearchParams({
-    fields: 'id, mimeType, parents, thumbnailLink',
-    supportsAllDrives: 'true',
-  });
-  const response = await driveGet(`${DRIVE_API}/${encodeURIComponent(fileId)}?${params}`, config.apiKey);
-  const file = await response.json();
-
-  const isImage = typeof file.mimeType === 'string' && file.mimeType.startsWith('image/');
-  const inCarousel = (file.parents || []).some((parent) => allowedParents.has(parent));
-  return isImage && inCarousel ? file : null;
+  for (const folderId of Object.values(folders)) {
+    const files = await listChildren(
+      folderId,
+      "mimeType contains 'image/'",
+      'id, mimeType, thumbnailLink',
+      config.apiKey
+    );
+    const file = files.find((item) => item.id === fileId);
+    if (file) return file;
+  }
+  return null;
 }
 
-/** Downloads the image, preferring a resized version to keep it light. */
+async function fetchImage(url) {
+  const response = await fetch(url);
+  const contentType = response.headers.get('content-type') || '';
+  if (!response.ok || !contentType.startsWith('image/')) {
+    const text = contentType.startsWith('image/') ? '' : await response.text().catch(() => '');
+    throw new Error(`Descarga fallida (${response.status}, ${contentType}): ${text.slice(0, 200)}`);
+  }
+  return { contentType, body: Buffer.from(await response.arrayBuffer()) };
+}
+
+/** Downloads the original image; if that fails, tries Drive's resized thumbnail. */
 export async function downloadImage(config, file, size = 2000) {
-  if (file.thumbnailLink) {
+  const original =
+    `${DRIVE_API}/${encodeURIComponent(file.id)}?alt=media&supportsAllDrives=true` +
+    `&key=${encodeURIComponent(config.apiKey)}`;
+  try {
+    return await fetchImage(original);
+  } catch (error) {
+    if (!file.thumbnailLink) throw error;
+    const resized = file.thumbnailLink.replace(/=s\d+(-[a-z0-9-]+)?$/i, `=s${size}`);
     try {
-      const resized = file.thumbnailLink.replace(/=s\d+(-[a-z0-9-]+)?$/i, `=s${size}`);
-      const response = await fetch(resized);
-      if (response.ok) {
-        return {
-          contentType: response.headers.get('content-type') || file.mimeType,
-          body: Buffer.from(await response.arrayBuffer()),
-        };
-      }
-    } catch {
-      // Fall back to the original file below
+      return await fetchImage(resized);
+    } catch (thumbnailError) {
+      throw new Error(`${error.message} | Miniatura: ${thumbnailError.message}`);
     }
   }
-
-  const response = await driveGet(
-    `${DRIVE_API}/${encodeURIComponent(file.id)}?alt=media&supportsAllDrives=true`,
-    config.apiKey
-  );
-  return {
-    contentType: response.headers.get('content-type') || file.mimeType,
-    body: Buffer.from(await response.arrayBuffer()),
-  };
 }

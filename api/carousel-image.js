@@ -31,6 +31,6 @@ export default async function handler(req, res) {
     return res.status(200).send(image.body);
   } catch (error) {
     console.error('Error descargando imagen de Google Drive:', error);
-    return res.status(502).json({ error: 'No se pudo descargar la imagen' });
+    return res.status(502).json({ error: 'No se pudo descargar la imagen', detalle: error.message });
   }
 }
